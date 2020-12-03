@@ -1,10 +1,10 @@
 IDIR =../include
 CC = gcc
-CFLAGS = -g -I$(IDIR)
+CFLAGS = -g -I$(IDIR) -lSDL2
 EXE = ray-tracer
 ODIR=obj
 
-_OBJ = main.o vector.o types.o
+_OBJ = main.o vector.o types.o canvas.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: $(EXE)

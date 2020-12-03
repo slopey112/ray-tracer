@@ -1,7 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <unistd.h>
+
 #include "vector.h"
 #include "types.h"
+#include "canvas.h"
 
 int main()
 {
@@ -27,5 +30,15 @@ int main()
     free(v);
 
     printf("%f %f %f\n", intersect->x, intersect->y, intersect->z);
+    free(intersect);
+
+    Canvas *canvas = canvas_init(100, 100, 20, 20);
+    for (int i = 0; i < 100; i++)
+    {
+        canvas_draw(canvas, i, 10, 255, 0, 0);
+    }
+    canvas_display(canvas);
+    sleep(5);
+    canvas_destroy(canvas);
     return 0;
 }
