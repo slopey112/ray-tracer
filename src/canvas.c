@@ -15,6 +15,8 @@ Canvas *canvas_init(uint width, uint height, uint viewport_width, uint viewport_
     canvas->renderer = renderer;
     canvas->width = width;
     canvas->height = height;
+    canvas->viewport_width = viewport_width;
+    canvas->viewport_height = viewport_height;
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     return canvas;
@@ -38,9 +40,11 @@ void *canvas_display(Canvas *self)
     SDL_RenderPresent(self->renderer);
 }
 
-Vector *canvas_to_viewport(Canvas *self, uint canvas_x, uint canvas_y, uint distance)
+Vector *canvas_to_viewport(Canvas *self, int canvas_x, int canvas_y, int distance)
 {
-    double viewport_x = canvas_x * self->viewport_width / self->width;
-    double viewport_y = canvas_y * self->viewport_height / self->height;
+    canvas_x -= self->width / 2;
+    canvas_y -= self->height / 2;
+    double viewport_x = (double) canvas_x * self->viewport_width / self->width;
+    double viewport_y = (double) canvas_y * self->viewport_height / self->height;
     return vector_init(viewport_x, viewport_y, distance);
 }

@@ -4,7 +4,7 @@ CFLAGS = -g -I$(IDIR) -lSDL2
 EXE = ray-tracer
 ODIR=obj
 
-_OBJ = main.o vector.o types.o canvas.o
+_OBJ = main.o vector.o types.o canvas.o parse.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 all: $(EXE)

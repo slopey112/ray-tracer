@@ -17,4 +17,4 @@ Canvas *canvas_init(uint width, uint height, uint viewport_width, uint viewport_
 void *canvas_destroy(Canvas *self);
 void *canvas_draw(Canvas *self, uint x, uint y, byte r, byte g, byte b);
 void *canvas_display(Canvas *self);
-Vector *canvas_to_viewport(Canvas *self, uint canvas_x, uint canvas_y, uint distance);
+Vector *canvas_to_viewport(Canvas *self, int canvas_x, int canvas_y, int distance);

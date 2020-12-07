@@ -7,6 +7,7 @@
 #include "vector.h"
 #include "types.h"
 #include "canvas.h"
+#include "parse.h"
 
 #define EPSILON 0.00001
 
@@ -65,7 +66,38 @@ int main()
         canvas_draw(canvas, i, 10, 255, 0, 0);
     }
     canvas_display(canvas);
-    sleep(1);
     canvas_destroy(canvas);
-    return 0;
+
+    // Parse Test
+    Triangle **triangles = parse_obj("../scene.obj");
+    Vector *p = triangles[0]->p1;
+    printf("%f %f %f\n", p->x, p->y, p->z);
+    int ct = 42;
+
+    // Visual Test
+    Canvas *canvas2 = canvas_init(1000, 750, 5, 5);
+    Vector *camera = vector_init(0, 0, 0);
+    for (int i = 0; i < canvas2->height; i++)
+    {
+        for (int j = 0; j < canvas2->width; j++)
+        {
+            for (int k = 0; k < ct; k++)
+            {
+
+                Vector *viewport = canvas_to_viewport(canvas2, j, canvas2->height - i, 1);
+                Triangle *triangle = triangles[k];
+                Plane *plane = triangle_to_plane(triangle);
+                Vector *intercept = plane_ray_intersect(plane, camera, viewport);
+                if (triangle_intersect_point(triangle, intercept))
+                {
+                    canvas_draw(canvas2, j, i, 0, 255, 0);
+                }
+                free(viewport);
+                free(intercept);
+            }
+        }
+    }
+    canvas_display(canvas2);
+    sleep(60);
+    canvas_destroy(canvas2);
 }
