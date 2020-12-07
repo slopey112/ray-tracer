@@ -6,7 +6,7 @@
 #include "types.h"
 #include "parse.h"
 
-Triangle **parse_obj(char *fname)
+Triangle **parse_obj(char *fname, int *tcount)
 {
     FILE *fp = fopen(fname, "r");
     if (fp == NULL)
@@ -45,5 +45,6 @@ Triangle **parse_obj(char *fname)
             face_ct++;
         }
     }
+    *tcount = face_ct;
     return triangles;
 }

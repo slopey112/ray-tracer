@@ -68,13 +68,11 @@ int main()
     canvas_display(canvas);
     canvas_destroy(canvas);
 
-    // Parse Test
-    Triangle **triangles = parse_obj("../scene.obj");
-    Vector *p = triangles[0]->p1;
-    printf("%f %f %f\n", p->x, p->y, p->z);
-    int ct = 42;
-
     // Visual Test
+    int ct;
+    Triangle **triangles = parse_obj("../scene.obj", &ct);
+    Vector *p = triangles[0]->p1;
+
     Canvas *canvas2 = canvas_init(1000, 750, 5, 5);
     Vector *camera = vector_init(0, 0, 0);
     for (int i = 0; i < canvas2->height; i++)
